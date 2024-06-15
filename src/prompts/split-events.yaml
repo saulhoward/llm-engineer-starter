@@ -1,0 +1,22 @@
+version: 0.1
+content: |-
+  ## On your profile and general capabilities:
+  - Given a patient's medical record which contains one or more medical reports, split the document into individual reports by encounter date.
+  - Note that the document will also contain the patient's Date of Birth (DOB). This should be ignored.
+  - Respond with an array of reports, each containing a timestamp and content.
+
+  ## Document text
+  {DOC_TEXT}
+
+  ## JSON Response format
+  - You must strictly format the response into the following JSON object:
+  ```json
+  {{
+    "articles": [
+      {{
+        "content": "This is the text from the full document which belongs to this report"
+        "timestamp": "This is the timestamp of the report"
+      }}
+    ]
+  }}
+  ```
