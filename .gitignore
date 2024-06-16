@@ -4,3 +4,6 @@
 **/.env
 .idea/
 .DS_Store
+secrets
+.python-version
+__pycache__
