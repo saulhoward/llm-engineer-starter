@@ -4,6 +4,10 @@
 python submission.py --path=data/inpatient_record.pdf
 ```
 
+[Example output](https://github.com/saulhoward/llm-engineer-starter/blob/main/data/example-output.json)
+
+## Decisions
+
 My initial thoughts and assumptions were:
 
 - The first problem is the need to split the document into relevant sections.
@@ -55,6 +59,11 @@ With the information now structured:
 - Results from `llama3:8b` were not good, as expected.
 - Results from `llama3:70b` do work, but on my hardware the model runs too slowly.
 - I opted not to use OpenAI specific features, like tools/functions. I've had good experience using these to generate JSON, but that wasn't necessary here.
+
+## Results
+
+- The splitting approach seems to work. Further research/experimentation may point to a better solution.
+- The "medical findings" are not differentiated enough. The prompt causes confusion between, e.g. the patient's history and their family history. More detailed prompting is needed.
 
 ## Further thoughts
 

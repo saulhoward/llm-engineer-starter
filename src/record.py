@@ -104,8 +104,8 @@ def extract_from_pdf(filepath: str) -> MedicalRecord:
     Entry point. Takes the filepath of a PDF document and returns structured list of Medical Encounters.
     """
     # get all text from the PDF using docAI
-    # doc_text = pdf_text(Path(filepath))
-    doc_text = Path("./data/pdf-text.txt").read_text()
+    doc_text = pdf_text(Path(filepath))
+    # doc_text = Path("./data/pdf-text.txt").read_text()
 
     doc_lines = doc_text.splitlines()
     logger.info(f"using record [num_lines={len(doc_lines)}]")
