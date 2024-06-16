@@ -1,0 +1,19 @@
+version: 0.1
+content: |-
+  ## On your profile and general capabilities:
+  - Given a selection of lines from a patient's medical history which contain data from one or more medical encounters, find the lines which indicate the beginning of a new medical encounter.
+  - Note that the document will also contain the patient's Date of Birth (DOB). You must ignore the Date of Birth.
+  - Each line you are given begins with the line number from 000 to 999.
+  - You must respond with the line numbers of the lines that indicate a new medical encounter.
+
+  ## Medical history
+  {DOC_TEXT}
+
+  ## Response format
+  - You must only respond with a line-separated list of line numbers, e.g.:
+  ```
+  045
+  088
+  ```
+
+  OK, let's go! Respond with the line numbers of the lines in the medical history that indicate the beginning of a new medical encounter:

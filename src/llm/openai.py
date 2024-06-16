@@ -4,8 +4,8 @@ import openai
 from openai import AzureOpenAI, OpenAI
 from pydantic import BaseModel
 
-from .util import ChatMessageType, format_chat_message
 from .base import CompletionService, EmbeddingService
+from .util import ChatMessageType, format_chat_message
 
 DEFAULT_STOP_TOKEN: List[str] = ["<EOS>"]
 

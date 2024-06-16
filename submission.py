@@ -6,7 +6,7 @@ from src.record import extract_from_pdf
 def main(filepath: str):
     """Write the entrypoint to your submission here"""
     result = extract_from_pdf(filepath)
-    # print(result.model_dump_json())
+    print(result.content)
 
 
 if __name__ == "__main__":
