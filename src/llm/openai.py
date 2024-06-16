@@ -4,7 +4,7 @@ import openai
 from openai import AzureOpenAI, OpenAI
 from pydantic import BaseModel
 
-from .base import CompletionService, EmbeddingService
+from .base import CompletionService
 from .util import ChatMessageType, format_chat_message
 
 DEFAULT_STOP_TOKEN: List[str] = ["<EOS>"]
@@ -14,7 +14,7 @@ class OpenAIConfig(BaseModel):
     api_type: str = "openai"
     api_base: str = "https://api.openai.com/v1"
     api_key: str
-    model: str = "gpt-4o"
+    model: str = "gpt-4-turbo"
     embedding_model: str = "text-embedding-ada-002"
     response_format: str = "json_object"
     api_version: str = "2023-12-01-preview"
@@ -28,7 +28,7 @@ class OpenAIConfig(BaseModel):
     seed: int = 123456
 
 
-class OpenAIService(CompletionService, EmbeddingService):
+class OpenAIService(CompletionService):
     config: OpenAIConfig
 
     def __init__(self, api_key: str):
@@ -126,32 +126,6 @@ class OpenAIService(CompletionService, EmbeddingService):
                         ],
                     )
                 yield response
-
-        except openai.APITimeoutError as e:
-            # Handle timeout error, e.g. retry or log
-            raise Exception(f"OpenAI API request timed out: {e}")
-        except openai.APIConnectionError as e:
-            # Handle connection error, e.g. check network or log
-            raise Exception(f"OpenAI API request failed to connect: {e}")
-        except openai.BadRequestError as e:
-            # Handle invalid request error, e.g. validate parameters or log
-            raise Exception(f"OpenAI API request was invalid: {e}")
-        except openai.AuthenticationError as e:
-            # Handle authentication error, e.g. check credentials or log
-            raise Exception(f"OpenAI API request was not authorized: {e}")
-        except openai.PermissionDeniedError as e:
-            # Handle permission error, e.g. check scope or log
-            raise Exception(f"OpenAI API request was not permitted: {e}")
-        except openai.RateLimitError as e:
-            # Handle rate limit error, e.g. wait or log
-            raise Exception(f"OpenAI API request exceeded rate limit: {e}")
         except openai.APIError as e:
             # Handle API error, e.g. retry or log
             raise Exception(f"OpenAI API returned an API Error: {e}")
-
-    def get_embeddings(self, strings: List[str]) -> List[List[float]]:
-        embedding_results = self.client.embeddings.create(
-            input=strings,
-            model=self.config.embedding_model,
-        ).data
-        return [r.embedding for r in embedding_results]

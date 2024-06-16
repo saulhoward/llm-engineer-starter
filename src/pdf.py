@@ -82,9 +82,3 @@ def pdf_text(file_path: Path) -> str:
         all_text += chunk_pages(reader.pages[:-remainder_chunk_size])
 
     return all_text
-
-
-if __name__ == "__main__":
-    # Example Usage
-    document_ai = DocumentAI()
-    document = document_ai(Path("data/sample.pdf"))

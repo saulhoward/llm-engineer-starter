@@ -5,19 +5,18 @@ from typing import Any, Generator, List, Optional
 import requests
 from pydantic import BaseModel
 
-from .base import CompletionService, EmbeddingService
+from .base import CompletionService
 from .util import ChatMessageType, format_chat_message
 
 
 class OllamaServiceConfig(BaseModel):
     name: str = "ollama"
-    api_base: str = "http://host.docker.internal:11434"
+    api_base: str = "http://localhost:11434"
     model: str = "llama3:70b"
-    embedding_model: str = "llama3:70b"
     response_format: str = "json"
 
 
-class OllamaService(CompletionService, EmbeddingService):
+class OllamaService(CompletionService):
     def __init__(self):
         self.config = OllamaServiceConfig()
 
@@ -31,6 +30,7 @@ class OllamaService(CompletionService, EmbeddingService):
         stop: Optional[List[str]] = None,
         **kwargs: Any,
     ) -> Generator[ChatMessageType, None, None]:
+        print(messages)
         try:
             return self._chat_completion(
                 messages=messages,
@@ -145,24 +145,11 @@ class OllamaService(CompletionService, EmbeddingService):
                     response = chunk_obj["response"]
                     yield format_chat_message("assistant", response)
 
-    def get_embeddings(self, strings: List[str]) -> List[List[float]]:
-        return [self._get_embedding(string) for string in strings]
-
     def _stream_process(self, resp: requests.Response) -> Generator[Any, None, None]:
         for line in resp.iter_lines():
             line_str = line.decode("utf-8")
             if line_str and line_str.strip() != "":
                 yield json.loads(line_str)
-
-    def _get_embedding(self, string: str) -> List[float]:
-        payload = {"model": self.config.embedding_model, "prompt": string}
-
-        with self._request_api("/api/embeddings", payload) as resp:
-            if resp.status_code != 200:
-                raise Exception(
-                    f"Failed to get embedding with error code {resp.status_code}: {resp.text}",
-                )
-            return resp.json()["embedding"]
 
     @contextmanager
     def _request_api(self, api_path: str, payload: Any, stream: bool = False):

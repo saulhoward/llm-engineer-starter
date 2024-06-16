@@ -1,16 +1,19 @@
-from typing import List
+from typing import List, Optional
 from datetime import datetime
+from uuid import uuid4
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, UUID4
 
 
-class Event(BaseModel):
+class MedicalEncounter(BaseModel):
     """
-    Event represents a single medical event in a patient's record.
+    Event represents a single medical encounter in a patient's record.
     """
 
     content: str
-    timestamp: datetime
+    findings: List[str]
+    prescriptions: List[str]
+    timestamp: Optional[datetime] = None
 
 
 class MedicalRecord(BaseModel):
@@ -18,6 +21,6 @@ class MedicalRecord(BaseModel):
     MedicalRecord represents a patient's entire medical record.
     """
 
-    id: str
+    id: UUID4 = Field(default_factory=uuid4)
     content: str
-    events: List[Event]
+    encounters: List[MedicalEncounter] = []

@@ -1,0 +1,15 @@
+version: 0.1
+content: |-
+  ## On your profile and general capabilities:
+  - Given a report of a medical encounter with a patient, respond with the date and optionally time on which the encounter happened.
+
+  ## Medical report
+  {DOC_TEXT}
+
+  ## Response format
+  - You must only respond with a single datetime string, e.g.:
+  ```
+  21 July 2013 10:15 pm
+  ```
+
+  OK, let's go! Respond with only the datetime on which the medical report happened:

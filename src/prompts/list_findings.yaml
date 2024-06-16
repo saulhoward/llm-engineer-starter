@@ -1,0 +1,19 @@
+version: 0.1
+content: |-
+  ## On your profile and general capabilities:
+  - Given a report of a medical encounter with a patient, list the specific findings in the report.
+  - Respond with a line-separated list of findings or medical observations.
+  - Do not change the language used in the report, only return specific medical findings that are mentioned in the report.
+
+  ## Medical report
+  {DOC_TEXT}
+
+  ## Response format
+  - You must only respond with a line-separated list of findings, e.g.:
+  ```
+  History of chicken pox
+  history of cervical cancer status post partial
+  SKIN: Warm, no erythema, rash, nodules, I did not see ecchymosis or petechiae.
+  ```
+
+  OK, let's go! Respond with a line-separated list of findings in the report:

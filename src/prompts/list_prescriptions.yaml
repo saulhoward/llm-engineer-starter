@@ -1,0 +1,19 @@
+version: 0.1
+content: |-
+  ## On your profile and general capabilities:
+  - Given a report of a medical encounter with a patient, list any medical prescriptions for drugs mentioned in the report.
+  - Respond with a line-separated list of prescription medicines mentioned by name in the report.
+  - Do not change the language used in the report, only return specific prescription medicines that are mentioned in the report.
+
+  ## Medical report
+  {DOC_TEXT}
+
+  ## Response format
+  - You must only respond with a line-separated list of medicines, e.g.:
+  ```
+  On metoprolol, managed per PCP.
+  cyanocobalamin (B-12) 1,000 mcg tablet
+  multivitamin (THERAGRAN) tablet
+  ```
+
+  OK, let's go! Respond with a line-separated list of medicines in the report:

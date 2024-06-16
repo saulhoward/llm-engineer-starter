@@ -9,7 +9,6 @@ class CompletionService(abc.ABC):
     def chat_completion(
         self,
         messages: List[ChatMessageType],
-        stream: bool = True,
         temperature: Optional[float] = None,
         max_tokens: Optional[int] = None,
         top_p: Optional[float] = None,
@@ -20,9 +19,6 @@ class CompletionService(abc.ABC):
         Chat completion API
 
         :param messages: list of messages
-
-        :param stream: whether to stream the response
-
         :param temperature: temperature
         :param max_tokens: maximum number of tokens
         :param top_p: top p
@@ -32,16 +28,4 @@ class CompletionService(abc.ABC):
         :return: generator of messages
         """
 
-        raise NotImplementedError
-
-
-class EmbeddingService(abc.ABC):
-    @abc.abstractmethod
-    def get_embeddings(self, strings: List[str]) -> List[List[float]]:
-        """
-        Embedding API
-
-        :param strings: list of strings to be embedded
-        :return: list of embeddings
-        """
         raise NotImplementedError

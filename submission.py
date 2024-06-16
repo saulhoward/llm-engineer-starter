@@ -1,4 +1,5 @@
 import argparse
+import sys
 
 from src.record import extract_from_pdf
 
@@ -6,7 +7,7 @@ from src.record import extract_from_pdf
 def main(filepath: str):
     """Write the entrypoint to your submission here"""
     result = extract_from_pdf(filepath)
-    print(result.content)
+    sys.stdout.write(f"{result.model_dump_json()}\n")
 
 
 if __name__ == "__main__":
